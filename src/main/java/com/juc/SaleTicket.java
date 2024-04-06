@@ -49,11 +49,11 @@ public class SaleTicket {
         }, "Thread3").start();
     }
 }
-
 class Ticket {
     private final ReentrantLock lock = new ReentrantLock();
     private int number = 30;
 
+    // 监视器同步方法
     public synchronized void sale() {
 
         if (number > 0) {
