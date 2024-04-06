@@ -1,4 +1,4 @@
-package com.bryan.test.juc;
+package com.juc;
 
 public class ProductCustomerTest {
     public static void main(String[] args) {

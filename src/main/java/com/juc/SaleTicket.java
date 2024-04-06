@@ -1,4 +1,4 @@
-package com.bryan.test.juc;
+package com.juc;
 
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -49,11 +49,11 @@ public class SaleTicket {
         }, "Thread3").start();
     }
 }
+
 class Ticket {
     private final ReentrantLock lock = new ReentrantLock();
     private int number = 30;
 
-    // 监视器同步方法
     public synchronized void sale() {
 
         if (number > 0) {
@@ -69,7 +69,7 @@ class Ticket {
         try {
             if (number > 0) {
                 number--;
-                System.out.println(Thread.currentThread().getName() + "卖出第" +(30 - number)+ "还剩" + number + "张票");
+                System.out.println(Thread.currentThread().getName() + "卖出第" + (30 - number) + "还剩" + number + "张票");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
