@@ -89,7 +89,7 @@ class Share3 {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
-            lock.unlock(); 
+            lock.unlock();
         }
     }
 }
