@@ -51,7 +51,10 @@ public class SaleTicket {
 }
 
 class Ticket {
-    private final ReentrantLock lock = new ReentrantLock();
+    // 非公平锁
+//    private final ReentrantLock lock = new ReentrantLock();
+    // 公平锁
+    private final ReentrantLock lock = new ReentrantLock(true);
     private int number = 30;
 
     public synchronized void sale() {

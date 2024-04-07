@@ -18,7 +18,6 @@ public class CollectionNoSafe {
     public static void main(String[] args) {
         ArrayList<String> list = new ArrayList<>();
         CopyOnWriteArrayList<String> listSafe = new CopyOnWriteArrayList<>();
-        Collections.synchronizedList()
         HashMap<String, String> hashMap = new HashMap<>();
 
         // 不安全
