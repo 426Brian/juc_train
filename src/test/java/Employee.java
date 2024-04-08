@@ -12,6 +12,7 @@ import java.util.Objects;
  * @Create: 2024/4/8-10:53
  * Version: V1.0
  */
+
 public class Employee implements Comparable {
 
     private int id;

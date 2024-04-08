@@ -25,6 +25,10 @@ public class CompletableFutureTest {
                     throw new RuntimeException(e);
                 }
                 System.out.println("1秒钟后出结果 " + result);
+                if (result > 2) {
+                    // 故意制造异常，查看异常场景
+                    int i = 10 / 0;
+                }
                 return result;
             }, threadPool).whenComplete((v, e) -> {// v 是上一步任务的返回值即 return 的 result , e 是指异常
                 if (e == null) {
