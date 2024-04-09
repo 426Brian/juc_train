@@ -28,6 +28,7 @@ public class CompletableFutureMallDemo {
             new NetMall("dangdang"),
             new NetMall("pdd"),
             new NetMall("tmall"),
+            new NetMall("dewu"),
             new NetMall("taobao"));
 
     public static void main(String[] args) {
@@ -60,7 +61,8 @@ public class CompletableFutureMallDemo {
                 .map(netMall ->
                         String.format(productName + " in %s price is %.2f元",
                                 netMall.getNetMallName(),
-                                netMall.calcPrice(productName)))
+                                netMall.calcPrice(productName))
+                )
                 .collect(Collectors.toList());
 
     }
@@ -71,8 +73,12 @@ public class CompletableFutureMallDemo {
                 .map(netMall -> CompletableFuture.supplyAsync(() ->
                         String.format(productName + " in %s price is %.2f元",
                                 netMall.getNetMallName(),
-                                netMall.calcPrice(productName))))
-                .collect(Collectors.toList()).stream().map(s -> s.join()).collect(Collectors.toList());
+                                netMall.calcPrice(productName)))
+                )
+                .collect(Collectors.toList())
+                .stream()
+                .map(s -> s.join())
+                .collect(Collectors.toList());
     }
 
     private static void test() {
