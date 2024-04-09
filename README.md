@@ -1,1 +1,1 @@
-# juc_train
+# juc_train repository
