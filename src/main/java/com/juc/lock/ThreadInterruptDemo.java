@@ -49,16 +49,17 @@ public class ThreadInterruptDemo {
                     System.out.println(Thread.currentThread().getName() + " isInterrupted 被修改为true，程序停止");
                     break;
                 }
+                // todo 并未出现像文档中说的，当前线程中的sleep() 方法与其他线程中调该线程interrupt(),会使得中断位清除
                 try {
-                    Thread.sleep(200);
+                    Thread.currentThread().sleep(200);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
                 System.out.println(Thread.currentThread().getName() + " hello interrupt");
             }
-        }, "AA");
-        t_aa.start();
+        }, "thread_AA");
 
+        t_aa.start();
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
@@ -67,6 +68,7 @@ public class ThreadInterruptDemo {
         new Thread(() -> {
             t_aa.interrupt();
             System.out.println(Thread.currentThread().getName() + " hello interrupt");
-        }, "BB").start();
+        }, "thread_BB").start();
+
     }
 }

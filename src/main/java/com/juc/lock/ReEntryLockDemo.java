@@ -67,7 +67,8 @@ public class ReEntryLockDemo {
             } finally {
                 lock.unlock();
             }
-        }, "AA").start();new Thread(() -> {
+        }, "AA").start();
+        new Thread(() -> {
             lock.lock();
             try {
                 try {
