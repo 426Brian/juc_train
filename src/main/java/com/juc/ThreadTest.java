@@ -66,7 +66,7 @@ class Share3 {
                 System.out.println(Thread.currentThread().getName() + "::" + i);
             }
             flag = 3;
-            condition2.signal();
+            condition3.signal();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
@@ -85,7 +85,7 @@ class Share3 {
                 System.out.println(Thread.currentThread().getName() + "::" + i);
             }
             flag = 1;
-            condition3.signal();
+            condition1.signal();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
