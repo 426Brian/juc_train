@@ -1,9 +1,9 @@
-package com.juc.pool;
+package pool;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.util.Arrays;
@@ -92,13 +92,18 @@ public class CompletableFutureMallDemo {
     }
 }
 
+
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 @Accessors(chain = true)// 可以给实例对象链式赋属性值
 class NetMall {
     @Getter
+    @Setter
     private String netMallName;
+
+    public NetMall(String netMallName) {
+        this.netMallName = netMallName;
+    }
 
     public double calcPrice(String productName) {
         // 故意延迟，放大程序运行时间

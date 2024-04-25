@@ -21,11 +21,11 @@ public class CompletableFutureTest {
 
         CompletableFuture<Integer> integerCompletableFuture = CompletableFuture.supplyAsync(() -> {
             System.out.println(Thread.currentThread().getName() + " BB_");
-            int s = 1/0;
+            int s = 1 / 0;
             return 1024;
         });
 
-        integerCompletableFuture.whenComplete((t, u)->{
+        integerCompletableFuture.whenComplete((t, u) -> {
             System.out.println("---t = " + t);
             System.out.println("---u = " + u);
         });
