@@ -1,6 +1,9 @@
 package com.juc.pool;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.util.Arrays;
@@ -29,27 +32,39 @@ public class CompletableFutureMallDemo {
             new NetMall("taobao"));
 
     public static void main(String[] args) {
-//        test();
+//        completableFutureTest();
+        long start2 = System.currentTimeMillis();
+        List list3 = getPriceByCompletableFuture2(list, "mysql");
 
-//        System.out.println(ThreadLocalRandom.current().nextDouble() * 2 + "mysql".charAt(0));
+        list3.stream().forEach(System.out::println);
+
+        long end2 = System.currentTimeMillis();
+        System.out.println("--- CompletableFuture costTime " + (end2 - start2) + "毫秒");
+    }
+
+    private static void completableFutureTest() {
+        //        System.out.println(ThreadLocalRandom.current().nextDouble() * 2 + "mysql".charAt(0));
         System.out.println("别急，故意在方法calcPrice()里用了延时，放大程序运行时间，请耐心等待");
 
+        // 1. 未使用 completableFuture
         long start = System.currentTimeMillis();
         List<String> list2 = getPrice(list, "mysql");
 
         list2.stream().forEach(System.out::println);
 
         long end = System.currentTimeMillis();
-        System.out.println("--- costTime " + (end - start) + "毫秒");
+        System.out.println("--- no CompletableFuture costTime " + (end - start) + "毫秒");
 
         System.out.println("******************");
+
+        // 2. 使用 completableFuture
         long start2 = System.currentTimeMillis();
         List list3 = getPriceByCompletableFuture(list, "mysql");
 
         list3.stream().forEach(System.out::println);
 
         long end2 = System.currentTimeMillis();
-        System.out.println("--- costTime " + (end2 - start2) + "毫秒");
+        System.out.println("--- CompletableFuture costTime " + (end2 - start2) + "毫秒");
     }
 
     public static List<String> getPrice(List<NetMall> list, String productName) {
@@ -74,6 +89,19 @@ public class CompletableFutureMallDemo {
                 )
                 .collect(Collectors.toList())
                 .stream()
+                .map(s -> s.join())
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> getPriceByCompletableFuture2(List<NetMall> list, String productName) {
+
+        return list
+                .stream()
+                .map(netMall -> CompletableFuture.supplyAsync(() ->
+                        String.format(productName + " in %s price is %.2f元",
+                                netMall.getNetMallName(),
+                                netMall.calcPrice(productName)))
+                )
                 .map(s -> s.join())
                 .collect(Collectors.toList());
     }
