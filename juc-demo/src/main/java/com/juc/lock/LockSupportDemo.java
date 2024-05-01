@@ -14,27 +14,32 @@ import java.util.concurrent.locks.LockSupport;
  */
 public class LockSupportDemo {
     public static void main(String[] args) {
-        Thread t_aa = new Thread(() -> {
-            try {
-            System.out.println(Thread.currentThread().getName() + " come in");
-                TimeUnit.SECONDS.sleep(1);
+        Thread thread_A = new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + " come in "+System.currentTimeMillis());
+         /*   try {
+                TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
-            }
+            }*/
             LockSupport.park();
-            System.out.println(Thread.currentThread().getName() + " 被唤醒");
+            System.out.println(Thread.currentThread().getName() + " 被唤醒 "+System.currentTimeMillis());
         }, "AA");
-        new Thread(() -> {
-            System.out.println(Thread.currentThread().getName() + " 发出通知");
-            LockSupport.unpark(t_aa);
 
-        }, "BB").start();
+        Thread thread_B = new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + " 发出通知 "+System.currentTimeMillis());
+            LockSupport.unpark(thread_A);
+        }, "BB");
+
+        thread_B.start();
+
         // todo 开启等待执行结果不同
-       /* try {
+    /*    try {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }*/
-        t_aa.start();
+        thread_A.start();
+
     }
+
 }

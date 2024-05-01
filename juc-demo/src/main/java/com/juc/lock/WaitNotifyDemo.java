@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class WaitNotifyDemo {
     public static void main(String[] args) {
         Object obj = new Object();
-        new Thread(() -> {
+        Thread thread_AA = new Thread(() -> {
             synchronized (obj) {
                 System.out.println(Thread.currentThread().getName() + " come in");
                 try {
@@ -25,18 +25,23 @@ public class WaitNotifyDemo {
                 System.out.println(Thread.currentThread().getName() + " 被唤醒");
 
             }
-        }, "t_AA").start();
-
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        new Thread(() -> {
+        },"Thread_A");
+        Thread thread_BB = new Thread(() -> {
             synchronized (obj) {
                 obj.notify();
                 System.out.println(Thread.currentThread().getName() + " 发出通知");
             }
-        }, "t_BB").start();
+        },"Thread_B");
+
+        thread_AA.start();
+
+        // notify() 必须在 wait() 之后
+         try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        thread_BB.start();
+
     }
 }

@@ -33,6 +33,10 @@ public class CompletableFutureMallDemo {
 
     public static void main(String[] args) {
 //        completableFutureTest();
+        twiceMapsWithNoCollect();
+    }
+
+    private static void twiceMapsWithNoCollect() {
         long start2 = System.currentTimeMillis();
         List list3 = getPriceByCompletableFuture2(list, "mysql");
 
