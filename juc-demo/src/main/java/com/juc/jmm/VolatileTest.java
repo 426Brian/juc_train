@@ -12,14 +12,14 @@ import java.util.concurrent.TimeUnit;
  * Version: v1.0
  */
 public class VolatileTest {
-    static volatile boolean flag = true;
+    static  volatile boolean flag = true;
 
     public static void main(String[] args) {
         new Thread(() -> {
             System.out.println(Thread.currentThread().getName() + " come in");
             while (flag) {
             }
-            System.out.println("flag 被更新为false "+Thread.currentThread().getName()+" 结束");
+            System.out.println("flag 被更新为false " + Thread.currentThread().getName() + " 结束");
         }, "thread-A").start();
 
         try {
@@ -29,8 +29,9 @@ public class VolatileTest {
             throw new RuntimeException(e);
         }
 
-        flag  = false;
+        new Thread(() -> flag = false,"Thread-B").start();
 
-        System.out.println(Thread.currentThread().getName()+" 结束");
+
+        System.out.println(Thread.currentThread().getName() + " 结束");
     }
 }
