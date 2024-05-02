@@ -22,7 +22,8 @@ public class AtomicIntegerFieldUpdateDemo {
             new Thread(() -> {
                 try {
                     for (int j = 1; j <= 1000; j++) {
-                        bankAccount.add();
+//                        bankAccount.add();
+                        bankAccount.transferMoney(bankAccount);
                     }
                 } finally {
                     countDownLatch.countDown();
@@ -35,6 +36,11 @@ public class AtomicIntegerFieldUpdateDemo {
             throw new RuntimeException(e);
         }
 
-        System.out.println(Thread.currentThread().getName()+" money="+bankAccount.getMoney());
+        if (bankAccount.getMoney() != 10000) {
+            System.out.println("predicate money=10000;  -->"+"\u001B[31m *** wrong result *** \u001B[0m" +" money="+ bankAccount.getMoney()+"\t");
+        } else {
+            System.out.println("predicate money=10000;  -->"+ " result money=" + bankAccount.getMoney()+"\t");
+
+        }
     }
 }
