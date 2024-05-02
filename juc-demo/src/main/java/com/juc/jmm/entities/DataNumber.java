@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Data
 public class DataNumber {
-    public volatile int number;
+    public int number;
 
     public AtomicInteger atomicInteger = new AtomicInteger();
 
