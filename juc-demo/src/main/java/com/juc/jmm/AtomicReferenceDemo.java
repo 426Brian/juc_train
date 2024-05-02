@@ -1,8 +1,6 @@
 package com.juc.jmm;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
+import com.juc.jmm.entities.User;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -27,10 +25,3 @@ public class AtomicReferenceDemo {
     }
 }
 
-@Getter
-@ToString
-@AllArgsConstructor
-class User {
-    String userName;
-    int age;
-}

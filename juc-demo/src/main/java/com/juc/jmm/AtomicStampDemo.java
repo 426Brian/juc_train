@@ -1,7 +1,6 @@
 package com.juc.jmm;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.juc.jmm.entities.Book;
 
 import java.util.concurrent.atomic.AtomicStampedReference;
 
@@ -29,9 +28,3 @@ public class AtomicStampDemo {
 }
 
 
-@AllArgsConstructor
-@Data
-class Book {
-    int id;
-    String bookName;
-}

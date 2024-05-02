@@ -1,5 +1,7 @@
 package com.juc.jmm;
 
+import com.juc.jmm.entities.DataNumber;
+
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -15,7 +17,7 @@ public class NoAtomic {
     public static void main(String[] args) {
         for (int i = 1; i <= 20; i++) {
             System.out.print(i + " --> ");
-            if (test() != 50000) {
+            if (test() != 250000) {
                 System.out.println("\u001B[31m *** wrong result *** \u001B[0m");
             }
         }
@@ -29,7 +31,7 @@ public class NoAtomic {
         long start = System.currentTimeMillis();
         for (int i = 1; i <= threadNum; i++) {
             new Thread(() -> {
-                for (int j = 1; j <= 1000; j++) {
+                for (int j = 1; j <= 5000; j++) {
                     dataNumber.add();
                 }
                 countDownLatch.countDown();
@@ -49,10 +51,3 @@ public class NoAtomic {
 
 }
 
-class DataNumber {
-    volatile int number;
-
-    public synchronized void add() {
-        ++number;
-    }
-}
