@@ -2,9 +2,7 @@ package com.juc.jmm;
 
 import com.juc.jmm.entities.DataNumber;
 
-import java.util.TreeMap;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Classname: NoAtomic
