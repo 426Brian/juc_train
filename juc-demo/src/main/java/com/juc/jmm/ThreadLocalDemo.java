@@ -1,4 +1,4 @@
-package com.juc;
+package com.juc.jmm;
 
 import lombok.Data;
 
@@ -18,19 +18,18 @@ import java.util.concurrent.Executors;
 public class ThreadLocalDemo {
     public static void main(String[] args) {
 //        threadLocalTest();
-        MyNumber myNumber = new MyNumber();
         ExecutorService threadPool = Executors.newFixedThreadPool(30);
         try {
             for (int i = 1; i <= 10000; i++) {
                 threadPool.submit(() -> {
                     try {
-                        Integer before_count = myNumber.getThreadCount().get();
-                        myNumber.threadCountAdd();
+                        Integer before_count = MyNumber.threadCount.get();
+                        MyNumber.threadCountAdd();
 
-                        Integer after_count = myNumber.getThreadCount().get();
+                        Integer after_count = MyNumber.threadCount.get();
                         System.out.println(Thread.currentThread().getName() + " before_count = " + before_count + "  after_count = " + after_count);
                     } finally {
-                        myNumber.getThreadCount().remove();
+                        MyNumber.threadCount.remove();
                     }
                 });
             }
@@ -79,9 +78,9 @@ class MyNumber {
            }
        };
    */
-    ThreadLocal<Integer> threadCount = ThreadLocal.withInitial(() -> 0);
+   static ThreadLocal<Integer> threadCount = ThreadLocal.withInitial(() -> 0);
 
-    public void threadCountAdd() {
+    public static void threadCountAdd() {
         threadCount.set(1 + threadCount.get());
     }
 

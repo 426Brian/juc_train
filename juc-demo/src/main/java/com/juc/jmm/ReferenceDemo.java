@@ -18,6 +18,12 @@ import java.util.concurrent.TimeUnit;
  */
 public class ReferenceDemo {
     public static void main(String[] args) {
+        phantomReference();
+
+    }
+
+    // 虚引用 必须要有 ReferenceQueue， 回收的对象会放在队列中
+    private static void phantomReference() {
         MyObejct myObejct = new MyObejct();
         ReferenceQueue<MyObejct> referenceQueue = new ReferenceQueue<>();
         PhantomReference<MyObejct> phantomReference = new PhantomReference<>(myObejct, referenceQueue);
@@ -45,7 +51,6 @@ public class ReferenceDemo {
 
             }
         }, "thread-2").start();
-
     }
 
     // 弱引用 生命周期比软引用还短
