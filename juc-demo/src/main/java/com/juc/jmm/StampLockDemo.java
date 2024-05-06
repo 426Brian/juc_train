@@ -29,8 +29,9 @@ public class StampLockDemo {
         }, "read-thread").start();
 
         try {
-            // 等待两秒，先让获取读锁，读到数据
+            // 等待3秒，先让读线程获取读锁，读到数据，将乐观锁升级到悲观锁
             TimeUnit.SECONDS.sleep(3);
+//            TimeUnit.SECONDS.sleep(6); // 等待6秒，读线程结束，乐观读锁没有升级到悲观读锁
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
